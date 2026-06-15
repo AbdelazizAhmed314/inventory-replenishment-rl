@@ -4,7 +4,7 @@ A course project for training and evaluating a shared tabular Q-learning policy 
 
 ## Current Status
 
-The repository scaffold and five-product MDP configuration are complete. The simulator, finalized reward, policies, and evaluation pipeline have not yet been implemented.
+The repository scaffold and five-product MDP design are approved and complete. The simulator, finalized reward, policies, and evaluation pipeline have not yet been implemented.
 
 ## Setup
 

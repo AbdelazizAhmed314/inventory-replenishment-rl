@@ -4,7 +4,7 @@ A course project for training and evaluating a shared tabular Q-learning policy 
 
 ## Current Status
 
-The repository scaffold and five-product MDP design are approved and complete. The simulator, finalized reward, policies, and evaluation pipeline have not yet been implemented.
+The repository scaffold and approved five-product MDP design are complete. The deterministic simulator is implemented and ready for review. The finalized reward, policies, and evaluation pipeline have not yet been implemented.
 
 ## Setup
 
@@ -18,7 +18,8 @@ make sync
 make test
 make check
 make validate-design
+make simulator-evidence
 make smoke
 ```
 
-These commands currently validate the repository scaffold and Step 2 MDP configuration. Later roadmap steps will extend them to cover the simulator, policies, training, evaluation, and artifact verification.
+`make simulator-evidence` generates deterministic sample episodes and a validation report using explicit diagnostic schedules. `make smoke` runs the current checks and regenerates this evidence. Neither command implements a baseline or learning policy. Later roadmap steps will extend the project to cover policies, training, evaluation, and artifact verification.

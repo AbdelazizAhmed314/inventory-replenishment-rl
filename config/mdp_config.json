@@ -51,6 +51,7 @@
   "products": [
     {
       "product_id": 0,
+      "product_name": "Specialty coffee beans",
       "profile": "steady_light",
       "demand_means": {
         "low": 2,
@@ -60,6 +61,7 @@
     },
     {
       "product_id": 1,
+      "product_name": "Packaged snacks",
       "profile": "steady_standard",
       "demand_means": {
         "low": 5,
@@ -69,6 +71,7 @@
     },
     {
       "product_id": 2,
+      "product_name": "Umbrellas",
       "profile": "regime_sensitive",
       "demand_means": {
         "low": 2,
@@ -78,6 +81,7 @@
     },
     {
       "product_id": 3,
+      "product_name": "Premium olive oil",
       "profile": "premium_slow_mover",
       "demand_means": {
         "low": 1,
@@ -87,6 +91,7 @@
     },
     {
       "product_id": 4,
+      "product_name": "Bottled water",
       "profile": "fast_mover",
       "demand_means": {
         "low": 6,

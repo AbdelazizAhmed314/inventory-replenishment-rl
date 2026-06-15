@@ -4,7 +4,7 @@ A course project for training and evaluating a shared tabular Q-learning policy 
 
 ## Current Status
 
-The repository scaffold, five-product MDP design, deterministic simulator, and baseline policies are approved and complete. The scalar reward and pre-training reward-hacking audit are implemented and ready for review. No Q-learning agent has been implemented.
+The repository scaffold, MDP, simulator, baselines, and reward design are approved and complete. The tabular Q-learning agent has been trained and is ready for review before formal evaluation.
 
 ## Setup
 
@@ -21,10 +21,12 @@ make validate-design
 make simulator-evidence
 make baseline-evidence
 make reward-audit
+make train
+make verify-training
 make smoke
 ```
 
-`make simulator-evidence` generates deterministic simulator diagnostics. `make baseline-evidence` evaluates the random-feasible and rule-based order-up-to policies over identical environment seeds. `make reward-audit` checks the finalized reward against controlled edge cases and extreme policies. `make smoke` runs all current checks and regenerates the evidence. No Q-learning agent has been implemented.
+`make simulator-evidence` generates deterministic simulator diagnostics. `make baseline-evidence` evaluates the non-learning baselines. `make reward-audit` checks the finalized reward against controlled edge cases. `make train` trains the Q-learning agent and saves its local artifacts and evidence. `make verify-training` validates the saved training outputs. `make smoke` runs the fast pre-training checks without retraining.
 
 ## Step 4 Baselines
 
@@ -42,3 +44,9 @@ The transparent scalar reward, in simulated monetary units, is:
 ```
 
 Raw business metrics remain separate from the scalar training signal. See `REWARD_HACKING_AUDIT.md` for the pre-training audit, rejected alternatives, and residual risks.
+
+## Step 6 Training
+
+The dense Q-table has `89,280` cells. Training runs for `50,000` episodes with `alpha=0.10`, `gamma=0.99`, and linear epsilon decay from `1.00` to `0.05`. The final run completed in approximately `8.9` minutes.
+
+See `TRAINING_REPORT.md` for the course basis, implementation checks, results, representative learned decisions, and remaining risks. Formal comparison on unseen seeds has not been performed.

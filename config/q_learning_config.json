@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "algorithm": "tabular_q_learning",
+  "episodes": 50000,
+  "learning_rate": 0.1,
+  "discount_factor": 0.99,
+  "epsilon_schedule": "linear",
+  "epsilon_start": 1.0,
+  "epsilon_end": 0.05,
+  "epsilon_decay_fraction": 0.8,
+  "agent_seed": 697,
+  "environment_seed_start": 100000,
+  "q_initial_value": 0.0,
+  "rolling_window": 500
+}

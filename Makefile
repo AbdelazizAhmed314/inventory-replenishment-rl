@@ -1,4 +1,4 @@
-.PHONY: sync test check validate-design simulator-evidence baseline-evidence reward-audit smoke
+.PHONY: sync test check validate-design simulator-evidence baseline-evidence reward-audit train verify-training smoke
 
 sync:
 	uv sync --all-groups
@@ -21,6 +21,12 @@ baseline-evidence:
 
 reward-audit:
 	uv run python scripts/audit_reward.py
+
+train:
+	uv run python scripts/train_q_learning.py
+
+verify-training:
+	uv run python scripts/verify_training_artifacts.py
 
 smoke: test check validate-design simulator-evidence baseline-evidence reward-audit
 	uv run python -c "import inventory_replenishment_rl; print(inventory_replenishment_rl.__version__)"

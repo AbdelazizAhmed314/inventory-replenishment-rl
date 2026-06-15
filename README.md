@@ -43,9 +43,9 @@ make final-audit
 - `make final-audit` additionally checks repository hygiene and final deliverables.
 - `make demo` compares the saved learned policy with the rule baseline on seed `220000`.
 
-Training takes approximately `8.9` minutes on the development laptop. Evaluation and
-verification take under one minute after training. Generated outputs are intentionally
-ignored by Git and are recreated by the commands above.
+Training took `8.9` minutes in the primary run and `11.7` minutes in a fresh clone.
+Evaluation and verification take under one minute after training. Generated outputs are
+intentionally ignored by Git and are recreated by the commands above.
 
 ## Policies
 

@@ -24,12 +24,12 @@ make verify
 make final-audit
 ```
 
-Expected runtime: approximately 9 to 10 minutes for the complete `make run` workflow,
-dominated by 50,000 training episodes.
+Expected runtime: approximately 9 to 12 minutes for `make run`, dominated by 50,000
+training episodes.
 
 ## Verified Results
 
-- Training runtime: `534.19` seconds
+- Training runtime: `534.19` seconds primary; `700.17` seconds fresh clone
 - Tests: `37` passing at final implementation checkpoint
 - Q-table: `89,280` rows; `39,880` visited feasible state-action pairs
 - Standard evaluation: `600` rows across three policies and 200 unseen seeds
@@ -46,7 +46,7 @@ dominated by 50,000 training episodes.
 - [x] Private planning and instruction documents remain ignored
 - [x] Public tracked files contain no private source references
 - [x] Documented commands regenerate and verify required outputs
-- [ ] Clean-clone reproduction completed after final commit
-- [ ] Final commit pushed to the remote repository
+- [x] Clean-clone setup, smoke, training, evaluation, demo, verification, and audit completed
+- [x] Verified implementation commit pushed to the remote repository
 
 Run `make final-audit` immediately before publishing the final commit.

@@ -30,7 +30,8 @@ The shared tabular Q-learning agent is implemented, trained, saved, and formally
 
 ## Training Results
 
-Training completed in `534.19` seconds, approximately `8.9` minutes.
+The primary run completed in `534.19` seconds, approximately `8.9` minutes. A fresh-clone
+reproduction completed training in `700.17` seconds, approximately `11.7` minutes.
 
 | Metric | Initial 500-Episode Mean | Final 500-Episode Mean |
 |---|---:|---:|

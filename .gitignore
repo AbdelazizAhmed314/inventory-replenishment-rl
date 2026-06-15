@@ -11,6 +11,12 @@ htmlcov/
 .idea/
 .vscode/
 
+# Local assignment planning and instruction documents
+Instructions.md
+IMPLEMENTATION_ROADMAP.md
+MDP_SPEC.md
+PROJECT_BRIEF.md
+
 # Generated project outputs
 artifacts/*
 !artifacts/.gitkeep

@@ -1,10 +1,10 @@
 # Inventory Replenishment RL
 
-A course project for training and evaluating a tabular Q-learning policy on a small, simulated single-product retail inventory replenishment problem.
+A course project for training and evaluating a shared tabular Q-learning policy on a small, simulated five-product retail inventory replenishment problem.
 
 ## Current Status
 
-Step 1 is ready for review. The repository scaffold and proposed scope are defined, but the MDP, simulator, reward, policies, and evaluation pipeline have not yet been implemented.
+Step 1 is approved and complete. The repository scaffold and five-product scope are defined, but the MDP, simulator, reward, policies, and evaluation pipeline have not yet been implemented.
 
 Read:
 

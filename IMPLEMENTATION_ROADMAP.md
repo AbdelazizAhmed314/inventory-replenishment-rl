@@ -15,11 +15,11 @@ Do not begin optional stretch work until all core steps are complete and reviewe
 
 ## Current Project Direction
 
-The proposed core project is a **retail inventory replenishment agent trained with tabular Q-learning**.
+The approved core project is a **five-product retail inventory replenishment agent trained with tabular Q-learning**.
 
-The agent will learn how much inventory to order at each decision point while balancing profit, stockouts, holding costs, and other business constraints. Training will happen entirely in a small local simulator.
+One shared policy will learn how much inventory to order for one product at each decision point while balancing profit, stockouts, holding costs, and other business constraints. The five products may have different bounded profiles, but the core will avoid a joint five-product action so the Q-table remains tractable. Training will happen entirely in a small local simulator.
 
-This direction can be changed during Step 1.
+This direction was approved at the end of Step 1.
 
 ## Repository and Tooling Decision
 
@@ -29,6 +29,7 @@ The assignment will be developed as a standalone Git repository inside `Assignme
 - Use a course-aligned Python project structure rather than a generic Cookiecutter template.
 - Use `pyproject.toml` and `uv.lock` for dependencies and reproducibility.
 - Keep source code under `src/`, tests under `tests/`, and generated evidence under `artifacts/` or `evidence/`.
+- Use an artifact-driven CLI and Makefile workflow as the core interface; reserve Streamlit for optional polish only.
 - Add a GitHub remote after the initial scaffold has been reviewed.
 - Verify the final project from a clean clone before submission.
 
@@ -76,7 +77,7 @@ The completed assignment must include:
 
 ## Step 1: Confirm the Business Problem and Scope
 
-**Status:** Ready for review
+**Status:** Approved
 
 ### Goal
 
@@ -84,11 +85,12 @@ Choose the final business problem and define a scope small enough to implement, 
 
 ### Proposed Decisions
 
-- Domain: single-product retail inventory replenishment
+- Domain: five-product retail inventory replenishment
 - Learning method: tabular Q-learning
 - Episode: a fixed number of simulated business days
-- Agent decision: how many units to order
+- Agent decision: how many units to order for the current product
 - Primary objective: maximize long-term profit while controlling stockouts and excess inventory
+- Tractability constraint: one shared product-level policy, not a joint five-product action
 
 ### Work
 
@@ -155,7 +157,7 @@ Translate the business problem into a precise and implementable Markov Decision 
 
 | Component | Proposed Definition |
 |---|---|
-| State | Inventory level, recent demand category, and incoming-order status |
+| State | Product profile, inventory level, recent demand category, and incoming-order status |
 | Action | Order 0, 5, 10, or 20 units |
 | Reward | Sales revenue minus purchasing, holding, stockout, and waste costs |
 | Transition | Demand occurs, inventory changes, and placed orders progress |
@@ -460,6 +462,7 @@ Turn the implementation and evidence into a clear, reproducible submission.
 
 - Write a complete `README.md`.
 - Explain installation, training, evaluation, artifact locations, and expected runtime.
+- Document `make run`, `make verify`, and `make demo` as the main grader workflows.
 - Document the MDP, algorithm choice, baseline, and major findings.
 - Write the required 1–2 page business memo.
 - State whether the policy should be deployed, shadowed, or rejected.
@@ -501,6 +504,7 @@ Verify that the complete project satisfies every assignment requirement and runs
 
 - Run all tests.
 - Run training and evaluation from documented commands.
+- Run the seeded CLI demonstration from the documented command.
 - Confirm runtime stays within the assignment limit.
 - Verify generated artifacts and plots.
 - Check all assignment requirements against the final files.
@@ -695,7 +699,7 @@ The Gymnasium interface is validated without changing the approved core environm
 
 | Step | Description | Status | Approved |
 |---|---|---|---|
-| 1 | Confirm business problem and scope | Ready for review | No |
+| 1 | Confirm business problem and scope | Completed | Yes |
 | 2 | Define the MDP | Not started | No |
 | 3 | Build and validate simulator | Not started | No |
 | 4 | Implement baselines and safety constraints | Not started | No |

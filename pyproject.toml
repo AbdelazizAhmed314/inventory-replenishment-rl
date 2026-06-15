@@ -1,7 +1,7 @@
 [project]
 name = "inventory-replenishment-rl"
 version = "0.1.0"
-description = "A tabular Q-learning project for simulated single-product inventory replenishment."
+description = "A tabular Q-learning project for simulated five-product inventory replenishment."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [

@@ -17,6 +17,8 @@ The project will use one tabular Q-learning controller to make product-level rep
 
 This avoids a joint action such as `(order_product_1, ..., order_product_5)`, which would create an unnecessarily large action space.
 
+With four order choices per product, the approved product-level design has only `4` actions per decision. A simultaneous five-product decision without a shared budget would have `4^5 = 1,024` joint actions. A shared budget would remove some infeasible joint actions but couple the products; preserving sequential four-action decisions would instead require adding remaining budget to the state and substantially enlarge the Q-table.
+
 ## Course Basis
 
 ### `Lec-4-5-deep-reinforcement-learning-agentic-ai-deckset.pdf`

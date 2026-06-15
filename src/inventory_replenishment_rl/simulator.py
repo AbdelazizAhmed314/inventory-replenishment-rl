@@ -10,6 +10,8 @@ from typing import Literal
 
 import numpy as np
 
+from inventory_replenishment_rl.reward import RewardBreakdown, RewardConfig, calculate_reward
+
 DemandRegime = Literal["low", "medium", "high"]
 DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config" / "mdp_config.json"
 
@@ -34,6 +36,7 @@ class SimulatorConfig:
     initial_regime: DemandRegime
     regimes: tuple[DemandRegime, ...]
     regime_transition_matrix: Mapping[DemandRegime, Mapping[DemandRegime, float]]
+    reward: RewardConfig
 
     @classmethod
     def from_json(cls, path: Path = DEFAULT_CONFIG_PATH) -> SimulatorConfig:
@@ -60,6 +63,7 @@ class SimulatorConfig:
             initial_regime=raw["demand"]["initial_regime"],
             regimes=tuple(raw["demand"]["regimes"]),
             regime_transition_matrix=raw["demand"]["regime_transition_matrix"],
+            reward=RewardConfig.from_mapping(raw["reward"]),
         )
 
 
@@ -101,11 +105,16 @@ class TransitionRecord:
     available_inventory: int
     actual_demand: int
     reward_drivers: RewardDrivers
+    reward_breakdown: RewardBreakdown
     next_state: InventoryState | None
     terminated: bool
 
-    def to_flat_dict(self) -> dict[str, int | str | bool | None]:
-        row: dict[str, int | str | bool | None] = {
+    @property
+    def scalar_reward(self) -> float:
+        return self.reward_breakdown.scalar_reward
+
+    def to_flat_dict(self) -> dict[str, int | float | str | bool | None]:
+        row: dict[str, int | float | str | bool | None] = {
             "episode_seed": self.episode_seed,
             "product_id": self.state.product_id,
             "product_name": self.product_name,
@@ -117,9 +126,9 @@ class TransitionRecord:
             "available_inventory": self.available_inventory,
             "actual_demand": self.actual_demand,
             **asdict(self.reward_drivers),
+            **asdict(self.reward_breakdown),
             "terminated": self.terminated,
-            "scalar_reward": None,
-            "reward_status": "weights_pending_step_5",
+            "reward_status": "finalized_step_5",
         }
         if self.next_state is None:
             row.update(
@@ -259,6 +268,13 @@ class InventorySimulator:
                 )
                 next_states[product_id] = next_state
 
+            reward_drivers = RewardDrivers(
+                sales_units=sales_units,
+                ordered_units=action,
+                holding_units=ending_on_hand,
+                stockout_units=stockout_units,
+                terminal_excess_units=terminal_excess_units,
+            )
             transitions.append(
                 TransitionRecord(
                     episode_seed=self._episode_seed,
@@ -267,12 +283,14 @@ class InventorySimulator:
                     action=action,
                     available_inventory=available_inventory,
                     actual_demand=actual_demand,
-                    reward_drivers=RewardDrivers(
-                        sales_units=sales_units,
-                        ordered_units=action,
-                        holding_units=ending_on_hand,
-                        stockout_units=stockout_units,
-                        terminal_excess_units=terminal_excess_units,
+                    reward_drivers=reward_drivers,
+                    reward_breakdown=calculate_reward(
+                        config=self.config.reward,
+                        sales_units=reward_drivers.sales_units,
+                        ordered_units=reward_drivers.ordered_units,
+                        holding_units=reward_drivers.holding_units,
+                        stockout_units=reward_drivers.stockout_units,
+                        terminal_excess_units=reward_drivers.terminal_excess_units,
                     ),
                     next_state=next_state,
                     terminated=terminal,

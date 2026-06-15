@@ -101,14 +101,14 @@
     }
   ],
   "reward": {
-    "status": "components_defined_weights_pending_step_5",
-    "components": [
-      "sales_revenue",
-      "procurement_cost",
-      "holding_cost",
-      "stockout_penalty",
-      "terminal_excess_penalty"
-    ]
+    "status": "finalized_step_5",
+    "units": "simulated_monetary_units",
+    "sales_revenue_per_unit": 10.0,
+    "procurement_cost_per_unit": 2.0,
+    "holding_cost_per_unit_week": 1.0,
+    "stockout_penalty_per_unit": 15.0,
+    "terminal_excess_penalty_per_unit": 5.0,
+    "initial_inventory_cost_treatment": "sunk_cost_excluded"
   },
   "termination": {
     "normal": "after all product transitions in week 11",

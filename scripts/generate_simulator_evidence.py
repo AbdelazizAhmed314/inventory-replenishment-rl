@@ -108,7 +108,7 @@ baseline or learned policy.
 - Different-seed output differs: `{different_seed_differs}`
 - Maximum available inventory observed: `{int(frame["available_inventory"].max())}`
 - Configured capacity: `30`
-- Scalar reward status: `weights_pending_step_5`
+- Scalar reward status: `finalized_step_5`
 
 ## Episode Summary
 
@@ -124,7 +124,7 @@ baseline or learned policy.
 - Actual demand is bounded and not present in the observation state before action selection.
 - Stockouts do not terminate an episode.
 - Capacity-invalid and unsupported actions are rejected before transitions occur.
-- Raw reward drivers are logged while scalar reward weights remain deferred to Step 5.
+- Raw reward drivers, reward components, and scalar reward are logged separately.
 - Terminal rows include terminal excess units and no next state.
 - The front-loaded maximum-order scenario produces high holding and terminal-excess drivers.
 - The high-demand zero-order scenario produces stockout drivers without early termination.

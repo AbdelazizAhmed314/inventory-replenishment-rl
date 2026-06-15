@@ -46,6 +46,7 @@ def episode_metrics(
     total_terminal_excess = sum(
         record.reward_drivers.terminal_excess_units for record in transitions
     )
+    total_scalar_reward = sum(record.scalar_reward for record in transitions)
     stockout_events = sum(record.reward_drivers.stockout_units > 0 for record in transitions)
 
     return {
@@ -61,6 +62,7 @@ def episode_metrics(
         "total_ordered_units": total_ordered,
         "average_holding_units": total_holding / len(transitions),
         "terminal_excess_units": total_terminal_excess,
+        "total_scalar_reward": total_scalar_reward,
         "capacity_violations": sum(
             record.state.on_hand + record.state.incoming_order + record.action
             > capacity_per_product
@@ -104,6 +106,7 @@ def summarize_baselines(episode_results: pd.DataFrame) -> pd.DataFrame:
         "total_ordered_units",
         "average_holding_units",
         "terminal_excess_units",
+        "total_scalar_reward",
         "capacity_violations",
     ]
     summary = episode_results.groupby("policy")[metrics].agg(["mean", "std"]).reset_index()

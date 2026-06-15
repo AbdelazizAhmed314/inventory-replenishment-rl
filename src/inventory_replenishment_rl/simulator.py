@@ -200,6 +200,10 @@ class InventorySimulator:
             if state.on_hand + state.incoming_order + action <= self.config.capacity_per_product
         )
 
+    def action_mask(self, product_id: int) -> tuple[bool, ...]:
+        feasible = set(self.feasible_actions(product_id))
+        return tuple(action in feasible for action in self.config.order_quantities)
+
     def step_week(
         self,
         actions: Mapping[int, int],

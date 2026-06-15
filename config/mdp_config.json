@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "decision_model": {
+    "controller": "shared_product_level_tabular_q_learning",
+    "joint_five_product_action": false,
+    "products_per_week": 5,
+    "episode_weeks": 12,
+    "transitions_per_episode": 60
+  },
+  "inventory": {
+    "capacity_per_product": 30,
+    "initial_on_hand": 15,
+    "initial_incoming_order": 0
+  },
+  "actions": {
+    "order_quantities": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "feasibility_rule": "on_hand + incoming_order + order_quantity <= capacity_per_product"
+  },
+  "demand": {
+    "distribution": "poisson",
+    "maximum_realized_demand": 20,
+    "initial_regime": "medium",
+    "regimes": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "regime_transition_matrix": {
+      "low": {
+        "low": 0.65,
+        "medium": 0.3,
+        "high": 0.05
+      },
+      "medium": {
+        "low": 0.15,
+        "medium": 0.7,
+        "high": 0.15
+      },
+      "high": {
+        "low": 0.05,
+        "medium": 0.3,
+        "high": 0.65
+      }
+    }
+  },
+  "products": [
+    {
+      "product_id": 0,
+      "profile": "steady_light",
+      "demand_means": {
+        "low": 2,
+        "medium": 4,
+        "high": 6
+      }
+    },
+    {
+      "product_id": 1,
+      "profile": "steady_standard",
+      "demand_means": {
+        "low": 5,
+        "medium": 8,
+        "high": 11
+      }
+    },
+    {
+      "product_id": 2,
+      "profile": "regime_sensitive",
+      "demand_means": {
+        "low": 2,
+        "medium": 7,
+        "high": 13
+      }
+    },
+    {
+      "product_id": 3,
+      "profile": "premium_slow_mover",
+      "demand_means": {
+        "low": 1,
+        "medium": 3,
+        "high": 5
+      }
+    },
+    {
+      "product_id": 4,
+      "profile": "fast_mover",
+      "demand_means": {
+        "low": 6,
+        "medium": 10,
+        "high": 14
+      }
+    }
+  ],
+  "reward": {
+    "status": "components_defined_weights_pending_step_5",
+    "components": [
+      "sales_revenue",
+      "procurement_cost",
+      "holding_cost",
+      "stockout_penalty",
+      "terminal_excess_penalty"
+    ]
+  },
+  "termination": {
+    "normal": "after all product transitions in week 11",
+    "early_termination": false
+  }
+}

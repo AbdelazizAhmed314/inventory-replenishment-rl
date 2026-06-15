@@ -30,7 +30,7 @@ The assignment will be developed as a standalone Git repository inside `Assignme
 - Use `pyproject.toml` and `uv.lock` for dependencies and reproducibility.
 - Keep source code under `src/`, tests under `tests/`, and generated evidence under `artifacts/` or `evidence/`.
 - Use an artifact-driven CLI and Makefile workflow as the core interface; reserve Streamlit for optional polish only.
-- Add a GitHub remote after the initial scaffold has been reviewed.
+- Use the connected GitHub repository: `https://github.com/AbdelazizAhmed314/inventory-replenishment-rl`.
 - Verify the final project from a clean clone before submission.
 
 **Cookiecutter decision:** Do not use Cookiecutter initially. It is not required by the assignment or course sources, and a generic template could add unnecessary structure. We can reconsider only if a specific approved template clearly matches the project.
@@ -137,7 +137,7 @@ The business problem, boundaries, and success criteria are approved.
 
 ## Step 2: Define the Markov Decision Process
 
-**Status:** Not started
+**Status:** Ready for review
 
 ### Goal
 
@@ -157,17 +157,18 @@ Translate the business problem into a precise and implementable Markov Decision 
 
 | Component | Proposed Definition |
 |---|---|
-| State | Product profile, inventory level, recent demand category, and incoming-order status |
-| Action | Order 0, 5, 10, or 20 units |
-| Reward | Sales revenue minus purchasing, holding, stockout, and waste costs |
-| Transition | Demand occurs, inventory changes, and placed orders progress |
-| Horizon | One fixed-length simulated business period |
+| State | Product ID, week, exact on-hand inventory, incoming order, and observable demand regime |
+| Action | Order 0, 5, 10, or 15 units for the current product |
+| Reward | Draft components: sales revenue minus procurement, holding, stockout, and terminal excess costs |
+| Transition | Existing order arrives, demand occurs, inventory changes, selected action enters the pipeline, and demand regime changes |
+| Horizon | 12 weeks; 60 product-level transitions per episode |
 
 ### Expected Outputs
 
 - `MDP_SPEC.md`
-- Machine-readable environment configuration
-- State and action encoding definitions
+- `config/mdp_config.json`
+- `config/state_action_encoding.json`
+- Configuration-only validation script and test
 
 ### Review Checkpoint
 
@@ -176,6 +177,7 @@ Translate the business problem into a precise and implementable Markov Decision 
 - Does the state avoid future-information leakage?
 - Does the reward reflect the intended business outcome?
 - Are delayed consequences represented?
+- Does the five-product design remain tractable at 22,320 states and 89,280 Q-table cells?
 
 ### Completion Condition
 
@@ -700,7 +702,7 @@ The Gymnasium interface is validated without changing the approved core environm
 | Step | Description | Status | Approved |
 |---|---|---|---|
 | 1 | Confirm business problem and scope | Completed | Yes |
-| 2 | Define the MDP | Not started | No |
+| 2 | Define the MDP | Ready for review | No |
 | 3 | Build and validate simulator | Not started | No |
 | 4 | Implement baselines and safety constraints | Not started | No |
 | 5 | Finalize reward and pre-training hacking audit | Not started | No |

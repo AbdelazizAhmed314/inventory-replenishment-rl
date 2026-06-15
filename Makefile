@@ -1,4 +1,4 @@
-.PHONY: sync test check smoke
+.PHONY: sync test check validate-design smoke
 
 sync:
 	uv sync --all-groups
@@ -10,5 +10,8 @@ check:
 	uv run ruff check .
 	uv run ruff format --check .
 
-smoke: test check
+validate-design:
+	uv run python scripts/validate_mdp_design.py
+
+smoke: test check validate-design
 	uv run python -c "import inventory_replenishment_rl; print(inventory_replenishment_rl.__version__)"
